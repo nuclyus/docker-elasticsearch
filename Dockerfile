@@ -17,19 +17,20 @@ RUN \
   wget https://download.elasticsearch.org/elasticsearch/elasticsearch/$ES_PKG_NAME.tar.gz && \
   tar xvzf $ES_PKG_NAME.tar.gz && \
   rm -f $ES_PKG_NAME.tar.gz && \
-  mv /tmp/$ES_PKG_NAME /opt/elasticsearch
+  mv /tmp/$ES_PKG_NAME /elasticsearch
  
+ADD config/elasticsearch.yml /elasticsearch/config/elasticsearch.yml
+
 RUN \
-  mkdir -p /opt/elasticsearch/ && \
-  mkdir -p /opt/elasticsearch/data && \
-  mkdir -p /opt/elasticsearch/config && \
-  chown -R elasticsearch:elasticsearch /opt/elasticsearch/ && \ 
-  chmod 770 /opt/elasticsearch/bin/elasticsearch
-  
+  mkdir -p /elasticsearch/ && \
+  mkdir -p /elasticsearch/data && \
+  mkdir -p /elasticsearch/config && \
+  chown -R elasticsearch:elasticsearch /elasticsearch/ && \ 
+  chmod -R 770 /elasticsearch/bin/elasticsearch
+
 # Define mountable directories.
 VOLUME ["/elasticsearch/data"]
 VOLUME ["/elasticsearch/logs"]
-VOLUME ["/elasticsearch/config/elasticsearch.yml"]
 
 # Define working directory.
 WORKDIR /elasticsearch/data
@@ -38,10 +39,11 @@ WORKDIR /elasticsearch/data
 USER elasticsearch
 
 # Define default command.
-CMD ["/opt/elasticsearch/bin/elasticsearch"]
+CMD ["/elasticsearch/bin/elasticsearch"]
 
 # Expose ports.
 #   - 9200: HTTP
 #   - 9300: transport
 EXPOSE 9200
 EXPOSE 9300
+

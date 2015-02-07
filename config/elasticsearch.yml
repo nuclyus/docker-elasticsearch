@@ -1,0 +1,8 @@
+path:
+  data: /elasticsearch/data
+  logs: /elasticsearch/log
+  plugins: /elasticsearch/plugins
+  work: /elasticsearch/work
+  
+http.cors.allow-origin: "/.*/"
+http.cors.allow-credentials: true
