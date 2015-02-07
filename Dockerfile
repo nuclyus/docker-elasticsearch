@@ -46,4 +46,3 @@ CMD ["/elasticsearch/bin/elasticsearch"]
 #   - 9300: transport
 EXPOSE 9200
 EXPOSE 9300
-
